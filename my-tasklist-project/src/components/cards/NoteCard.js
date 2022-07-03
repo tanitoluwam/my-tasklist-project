@@ -16,19 +16,28 @@ export const NoteCard = ({ item }) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="bi bi-three-dots-vertical"></i>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="white"
+                  class="bi bi-three-dots-vertical"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
               </button>
               <ul
                 className="dropdown-menu dropdown-menu-dark"
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>
-                  <Link className="dropdown-item" to="/note/:id">
+                  <Link className="dropdown-item" to="/create">
                     Edit
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/note/1">
+                  <Link className="dropdown-item" to={`/note/${item.id}`}>
                     View
                   </Link>
                 </li>

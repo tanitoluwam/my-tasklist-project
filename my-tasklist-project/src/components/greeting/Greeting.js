@@ -11,5 +11,5 @@ export const Greeting = () => {
   } else if (hours >= 17 && hours <= 24) {
     greet = "evening";
   }
-  return <div> Good {greet},</div>;
+  return <div> Good{greet},</div>;
 };
