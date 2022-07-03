@@ -1,4 +1,4 @@
-import { http } from "../plugins/Axios.plugin"
+import { http } from "../plugins/Axios"
 
 export const createNote = async(payload) => http.post('/createNote', payload)
 

@@ -1,4 +1,4 @@
-import { http } from "../plugins/Axios.plugin"
+import { http } from "../plugins/Axios"
 
 export const registerUser = async (payload) => {
     return http.post('/createUser', payload)
