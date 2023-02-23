@@ -4,6 +4,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FormikControl } from "../shared/FormikControl";
 import { registerUser } from "../../service";
+import { AuthLayout } from "../../layout/AuthLayout";
+import { CustomButton } from "../CustomButton/CustomButton";
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
@@ -16,14 +18,14 @@ export const RegisterForm = () => {
     password: Yup.string().required("Password is required"),
   });
   const onSubmit = async (values) => {
-try{
-  const response = await registerUser(values);
-  console.log("response",response)
-  navigate("/dashboard")
-}catch(error){
-  navigate("/dashboard")
-  console.log("error", error.response)
-}
+    try {
+      const response = await registerUser(values);
+      console.log("response", response);
+      navigate("/dashboard");
+    } catch (error) {
+      navigate("/dashboard");
+      console.log("error", error.response);
+    }
   };
 
   return (
@@ -34,19 +36,16 @@ try{
     >
       {(formik) => {
         return (
-          <Form>
-            <div className="row">
-              <div className="col-6  text-center welcome-section w-50">
-                <h2 className="fs-2 mb-2 text-light  pb-2 fw-bold">
-                  Hello Friend,
+          <AuthLayout
+            greeting=" Hello Friend,"
+            tagline="To keep connected with us, please sign up with your personal
+          info"
+          >
+            <div className="col-6  w-50 login-details">
+              <Form>
+                <h2 className="mb-3 fs-2 text-center fw-bold">
+                  Glad to meet you
                 </h2>
-                <p className="text-light fs-5 w-50 mx-auto pb-3">
-                  To keep connected with us, please sign up with your personal
-                  info
-                </p>
-              </div>
-              <div className="col-6  w-50 login-details" >
-                <h2 className="mb-3 fs-2 text-center fw-bold">Glad to meet you</h2>
                 <div className="mb-1 mx-auto w-50">
                   <FormikControl
                     control="input"
@@ -66,29 +65,16 @@ try{
                   />
                 </div>
                 <div className="mb-3 text-center">
-                  <Link
-                    className="text-decoration-none link-color"
-                    to="/login"
-                  >
+                  <Link className="text-decoration-none link-color" to="/login">
                     Already have an account?
                   </Link>
                 </div>
-                <div className = "text-center">
-                  <button
-                    className="btn btn-lg text-light rounded-pill cta-btn w-25"
-                    type="submit"
-                    disabled={!formik.isValid ||formik.isSubmitting}
-                  >
-                   Sign up
-                  </button>
-                </div>
-              </div>
-              ;
+                <CustomButton  text="Sign up" disabled="!formik.isValid || formik.isSubmitting"/>
+              </Form>
             </div>
-          </Form>
+          </AuthLayout>
         );
       }}
     </Formik>
   );
 };
-              

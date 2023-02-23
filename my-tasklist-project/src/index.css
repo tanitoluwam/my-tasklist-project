@@ -48,7 +48,10 @@
   top:600px;
 }
 .link-color{
-  color:#2a438f;
+  color:#202124;
+}
+.link-color:hover{
+  color:#202124;
 }
 .dashboard-container{
   background-color: #202124;

@@ -3,6 +3,8 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FormikControl } from "../shared/FormikControl";
 import { loginUser } from "../../service";
+import { AuthLayout } from "../../layout/AuthLayout";
+import { CustomButton } from "../CustomButton/CustomButton";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
@@ -20,13 +22,16 @@ export const LoginForm = () => {
     try {
       const response = await loginUser(values);
       // save token in cookies
-      console.log("🚀 ~ file: LogInForm.js ~ line 19 ~ onSubmit ~ response", response)
-      // redirect user to dashboard
-      navigate('/dashboard')
+      console.log(
+        "🚀 ~ file: LogInForm.js ~ line 19 ~ onSubmit ~ response",
+        response
+      );
+
+      navigate("/dashboard");
     } catch (error) {
-      navigate('/dashboard')
-      console.log('error', error.response)
-    } 
+      navigate("/dashboard");
+      console.log("error", error.response);
+    }
   };
   return (
     <Formik
@@ -36,18 +41,13 @@ export const LoginForm = () => {
     >
       {(formik) => {
         return (
-          <Form>
-            <div className="row">
-              <div className="col-6 text-center welcome-section w-50">
-                <h2 className="fs-2 mb-2 text-light pb-2 fw-bold">
-                  Hey, Welcome Back!
-                </h2>
-                <p className="text-light fs-5 w-50 mx-auto pb-3">
-                  To keep connected with us, please login with your personal
-                  info
-                </p>
-              </div>
+          <AuthLayout
+            greeting="Hey, Welcome Back!"
+            tagline="To keep connected with us, please login with your personal
+          info"
+          >
               <div className="col-6  w-50 login-details">
+            <Form>
                 <h2 className="mb-3 fs-2 text-center fw-bold">Login</h2>
                 <div className="mb-1 mx-auto w-50">
                   <FormikControl
@@ -75,22 +75,12 @@ export const LoginForm = () => {
                     Forgot password?
                   </Link>
                 </div>
-                <div className="text-center">
-                  <button
-                    className="btn btn-lg text-light rounded-pill cta-btn w-25"
-                    disabled={!formik.isValid || formik.isSubmitting}
-                  >
-                    Login
-                  </button>
-                </div>
+                <CustomButton  text="login" disabled="!formik.isValid || formik.isSubmitting"/>
+            </Form>
               </div>
-              ;
-            </div>
-          </Form>
+          </AuthLayout>
         );
       }}
     </Formik>
   );
 };
-
-
