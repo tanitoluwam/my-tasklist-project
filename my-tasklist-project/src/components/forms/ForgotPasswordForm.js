@@ -6,7 +6,9 @@ import { CustomButton } from "../CustomButton/CustomButton";
 const initialValues = {
   email: "",
 };
-const onSubmit = (values) => {};
+const onSubmit = (values) => {
+  console.log(values)
+};
 const validate = (values) => {
   let errors = {};
   if (!values.email) {

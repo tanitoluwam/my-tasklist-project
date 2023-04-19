@@ -6,7 +6,7 @@ import { loginUser } from "../../service";
 import { AuthLayout } from "../../layout/AuthLayout";
 import { CustomButton } from "../CustomButton/CustomButton";
 
-export const LoginForm = () => {
+export const LoginForm = ({ setUser }) => {
   const navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -19,18 +19,9 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (values) => {
-    try {
-      const response = await loginUser(values);
-      // save token in cookies
-      console.log(
-        "🚀 ~ file: LogInForm.js ~ line 19 ~ onSubmit ~ response",
-        response
-      );
-
+    const res = await loginUser(values);
+    if (res) {
       navigate("/dashboard");
-    } catch (error) {
-      navigate("/dashboard");
-      console.log("error", error.response);
     }
   };
   return (
@@ -46,8 +37,8 @@ export const LoginForm = () => {
             tagline="To keep connected with us, please login with your personal
           info"
           >
-              <div className="col-6  w-50 login-details">
-            <Form>
+            <div className="col-6  w-50 login-details">
+              <Form>
                 <h2 className="mb-3 fs-2 text-center fw-bold">Login</h2>
                 <div className="mb-1 mx-auto w-50">
                   <FormikControl
@@ -56,6 +47,7 @@ export const LoginForm = () => {
                     name="email"
                     label="Email"
                     className="form-control  mb2 bg-light mx-auto py-2"
+                    value={formik.values.email}
                   />
                 </div>
                 <div className="mb-1 mx-auto w-50">
@@ -65,6 +57,7 @@ export const LoginForm = () => {
                     name="password"
                     label="Password"
                     className="form-control  mb2 bg-light mx-auto py-2"
+                    value={formik.values.password}
                   />
                 </div>
                 <div className="mb-3 text-center">
@@ -75,9 +68,12 @@ export const LoginForm = () => {
                     Forgot password?
                   </Link>
                 </div>
-                <CustomButton  text="login" disabled="!formik.isValid || formik.isSubmitting"/>
-            </Form>
-              </div>
+                <CustomButton
+                  text="login"
+                  // disabled="!formik.isValid || formik.isSubmitting"
+                />
+              </Form>
+            </div>
           </AuthLayout>
         );
       }}

@@ -1,9 +1,17 @@
-import { http } from "../plugins/Axios"
+import { http } from "../plugins/Axios";
 
-export const createNote = async(payload) => http.post('/createNote', payload)
+export const createNote = async (payload) => http.post("/api/notes", payload);
 
-export const readNote = async (id) => http.get(`/readNote/${id}`)
+export const readNotes = async (options) =>
+  http.get("/api/notes", { params: options });
 
-export const updateNote = async (id) => http.put(`/putNote/${id}`)
+export const readNote = async (noteId) => http.get(`/api/notes/${noteId}`);
 
-export const deleteNote = async (id) => http.delete(`/deleteNote/${id}`)
+export const updateNote = async (noteId) =>
+  http.put(`/api/notes/${noteId}`, {
+    title: "title",
+    description: "description",
+    note: "note",
+  });
+
+export const deleteNote = async () => http.delete("/api/notes/:noteId");

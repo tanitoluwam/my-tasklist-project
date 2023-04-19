@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "service";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className="navbar pt-3 mb-2">
       <div className="container">
@@ -12,12 +14,12 @@ export const Navbar = () => {
           height="24"
         />
         <div className="links">
-          <Link
+          <button
             className="btn btn-outline-light text-light rounded-pill mx-1 btn-login"
-            to="/LogIn"
+            onClick={logoutUser}
           >
-          Sign Out
-          </Link>
+            Sign Out
+          </button>
         </div>
       </div>
     </nav>

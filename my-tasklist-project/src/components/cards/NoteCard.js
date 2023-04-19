@@ -1,13 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { DetailsIcon } from "components/vectors/DetailsIcon";
+import { Link, useNavigate } from "react-router-dom";
 
-export const NoteCard = ({ item }) => {
+export const NoteCard = ({ note }) => {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <div className="card task-box mx-2">
+      <div className="card task-box mx-2,">
         <div className="card-body">
           <div className="d-flex justify-content-between">
-            <h5 className="card-title">{item.title}</h5>
+            <h5 className="card-title">{note.title}</h5>
             <div className="dropdown">
               <button
                 className="btn dropdown-toggle"
@@ -16,16 +18,7 @@ export const NoteCard = ({ item }) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="white"
-                  class="bi bi-three-dots-vertical"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                </svg>
+                <DetailsIcon />
               </button>
               <ul
                 className="dropdown-menu dropdown-menu-dark"
@@ -37,19 +30,26 @@ export const NoteCard = ({ item }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to={`/note/${item.id}`}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => navigate(`/note/${note._id}`)}
+                  >
                     View
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => navigate(`/note/${note._id}`)}
+                  >
+                    delete
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
-          <p className="card-text">{item.content}</p>
+          <p className="card-text">{note.description}</p>
+          <p className="card-text">{note.note}</p>
         </div>
       </div>
     </div>

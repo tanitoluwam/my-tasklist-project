@@ -1,15 +1,13 @@
-import React from "react";
-
 export const Greeting = () => {
   const myDate = new Date();
   const hours = myDate.getHours();
-  let greet;
+  let myGreeting;
   if (hours < 12) {
-    greet = "morning";
+    myGreeting = "morning";
   } else if (hours >= 12 && hours <= 17) {
-    greet = "afternoon";
+    myGreeting = "afternoon";
   } else if (hours >= 17 && hours <= 24) {
-    greet = "evening";
+    myGreeting = "evening";
   }
-  return <div> Good{greet},</div>;
+  return <div> Good{myGreeting}</div>;
 };

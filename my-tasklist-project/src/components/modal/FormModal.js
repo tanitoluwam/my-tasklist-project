@@ -69,7 +69,7 @@ export const FormModal = ({ hideModal }) => {
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" className="btn btn-primary">Save</button>
 
             </div>
           </div>
