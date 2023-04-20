@@ -1,4 +1,5 @@
 import { http } from "../plugins/Axios";
+import { CustomErrorComponent } from "components/shared/CustomErrorComponent";
 
 export const loginUser = async (payload) => {
   try {
@@ -7,8 +8,7 @@ export const loginUser = async (payload) => {
     http.defaults.headers.common["Authorization"] = `Bearer${data.token}`;
     return data;
   } catch (error) {
-    // add notification here
-    throw new Error(error);
+    CustomErrorComponent({ message: error.message });
   }
 };
 
@@ -17,7 +17,7 @@ export const registerUser = async (payload) => {
     const { data } = await http.post("/api/auth/register", payload);
     return data;
   } catch (error) {
-    console.log("error", error.response);
+    CustomErrorComponent({ message: error.message });
   }
 };
 

@@ -11,11 +11,11 @@ import { useLoadingContext } from "context/LoadingContext/LoadingContext";
 
 export const Dashboard = () => {
   const [notes, setNotes] = useState([]);
-  const { isLoading, setIsLoading } = useLoadingContext();
+  const { setIsLoading } = useLoadingContext();
+  const { userProfile, getUserProfile } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
-  const { userProfile, getUserProfile } = useAuthContext();
 
   const getNotes = async () => {
     const options = { sortBy: "asc", page: 1, limit: 2 };
@@ -41,7 +41,7 @@ export const Dashboard = () => {
       <div className="container">
         <div className="d-flex justify-content-between w-100 py-4">
           <h2 className="s-2 text-light">
-            <Greeting /> {userProfile?.name},
+            <Greeting /> {userProfile?.name}
           </h2>
           <Link to="/create" className="text-decoration-none text-secondary">
             <AddNoteIcon />

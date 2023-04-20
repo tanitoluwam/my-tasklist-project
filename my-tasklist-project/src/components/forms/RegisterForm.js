@@ -84,7 +84,7 @@ export const RegisterForm = () => {
                 </div>
                 <CustomButton
                   text="Sign up"
-                  // disabled={"!formik.isValid || formik.isSubmitting"}
+                  disabled={!formik.isValid || formik.isSubmitting}
                 />
               </Form>
             </div>

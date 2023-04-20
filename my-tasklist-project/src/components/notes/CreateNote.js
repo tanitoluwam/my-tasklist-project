@@ -32,12 +32,10 @@ export const CreateNote = () => {
   });
 
   const onSubmit = async (values) => {
-    try {
-      const response = await createNote(values);
-      setCreatedNote(response);
+    const res = await createNote(values);
+    if (res) {
+      setCreatedNote(res);
       navigate("/dashboard");
-    } catch (error) {
-      console.log("error", error.response);
     }
   };
 

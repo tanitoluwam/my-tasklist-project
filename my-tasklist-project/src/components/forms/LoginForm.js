@@ -5,8 +5,9 @@ import { FormikControl } from "../shared/FormikControl";
 import { loginUser } from "../../service";
 import { AuthLayout } from "../../layout/AuthLayout";
 import { CustomButton } from "../CustomButton/CustomButton";
+import { useLoadingContext } from "context/LoadingContext/LoadingContext";
 
-export const LoginForm = ({ setUser }) => {
+export const LoginForm = () => {
   const navigate = useNavigate();
   const initialValues = {
     email: "",
@@ -20,9 +21,9 @@ export const LoginForm = ({ setUser }) => {
 
   const onSubmit = async (values) => {
     const res = await loginUser(values);
-    if (res) {
-      navigate("/dashboard");
-    }
+      if (res) {
+        navigate("/dashboard");
+      }
   };
   return (
     <Formik
@@ -70,7 +71,7 @@ export const LoginForm = ({ setUser }) => {
                 </div>
                 <CustomButton
                   text="login"
-                  // disabled="!formik.isValid || formik.isSubmitting"
+                  disabled={!formik.isValid || formik.isSubmitting}
                 />
               </Form>
             </div>

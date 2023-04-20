@@ -7,7 +7,7 @@ export const LoadingContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   if (isLoading) {
     return (
-      <div>
+      <div className="d-flex justify-content-center align-items-center h-100">
         <img src={LoadingSpinner} alt="loading spinner" className="spinner" />
       </div>
     );

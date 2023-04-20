@@ -16,8 +16,8 @@ function App() {
     return <Login />;
   }
   return (
-    <AuthContextProvider>
-      <LoadingContextProvider>
+    <LoadingContextProvider>
+      <AuthContextProvider>
         <Routes>
           <Route path="/" element={<Login />} />
           {/* <Route path="login" element={<Login />} /> */}
@@ -27,8 +27,8 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
         </Routes>
-      </LoadingContextProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </LoadingContextProvider>
   );
 }
 
