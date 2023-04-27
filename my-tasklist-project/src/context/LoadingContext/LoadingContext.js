@@ -1,20 +1,27 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useMemo } from "react";
 import LoadingSpinner from "assets/loadingSpinner.gif";
 
 const LoadingContext = createContext();
 
 export const LoadingContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
-  if (isLoading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center h-100">
-        <img src={LoadingSpinner} alt="loading spinner" className="spinner" />
-      </div>
-    );
-  }
+
+  const hideLoader = () => setIsLoading(false);
+  const showLoader = () => setIsLoading(true);
+
+  const value = useMemo(() => {
+    return { isLoading, hideLoader, showLoader };
+  }, [isLoading, hideLoader, showLoader]);
+
   return (
-    <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      {children}
+    <LoadingContext.Provider value={value}>
+      {isLoading ? (
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <img src={LoadingSpinner} alt="loading spinner" className="spinner" />
+        </div>
+      ) : (
+        <>{children}</>
+      )}
     </LoadingContext.Provider>
   );
 };

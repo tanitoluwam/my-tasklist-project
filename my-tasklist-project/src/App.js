@@ -9,26 +9,29 @@ import { NoteDetails } from "./pages/NoteDetails";
 import { CreateNote } from "./components/notes/CreateNote";
 import { AuthContextProvider } from "context/AuthContext/AuthContext";
 import { LoadingContextProvider } from "context/LoadingContext/LoadingContext";
+import { RequireAuth } from "pages/auth/RequireAuth";
 
 function App() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return <Login />;
-  }
   return (
-    <LoadingContextProvider>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <LoadingContextProvider>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* <Route path="login" element={<Login />} /> */}
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route
+            path="dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
           <Route path="note/:id" element={<NoteDetails />} />
           <Route path="create" element={<CreateNote />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
         </Routes>
-      </AuthContextProvider>
-    </LoadingContextProvider>
+      </LoadingContextProvider>
+    </AuthContextProvider>
   );
 }
 

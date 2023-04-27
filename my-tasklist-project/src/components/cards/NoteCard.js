@@ -1,5 +1,7 @@
 import { DetailsIcon } from "components/vectors/DetailsIcon";
 import { Link, useNavigate } from "react-router-dom";
+import { deleteNote } from "service";
+import { updateNote } from "service";
 
 export const NoteCard = ({ note }) => {
   const navigate = useNavigate();
@@ -25,9 +27,12 @@ export const NoteCard = ({ note }) => {
                 aria-labelledby="dropdownMenuButton2"
               >
                 <li>
-                  <Link className="dropdown-item" to="/create">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => updateNote(note._id)}
+                  >
                     Edit
-                  </Link>
+                  </button>
                 </li>
                 <li>
                   <button
@@ -40,7 +45,7 @@ export const NoteCard = ({ note }) => {
                 <li>
                   <button
                     className="dropdown-item"
-                    onClick={() => navigate(`/note/${note._id}`)}
+                    onClick={() => deleteNote(note._id)}
                   >
                     delete
                   </button>
@@ -48,7 +53,7 @@ export const NoteCard = ({ note }) => {
               </ul>
             </div>
           </div>
-          <p className="card-text">{note.description}</p>
+          <h6 className="card-description">{note.description}</h6>
           <p className="card-text">{note.note}</p>
         </div>
       </div>

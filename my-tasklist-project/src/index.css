@@ -58,7 +58,8 @@
 }
 .task-box {
   width: 19rem;
-  height: 18rem;
+  /* height: 18rem; */
+  height: auto;
 }
 
 .dropdown-toggle::after {

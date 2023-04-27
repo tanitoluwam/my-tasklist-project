@@ -8,23 +8,24 @@ import { readNotes } from "service";
 import { AddNoteIcon } from "components/vectors/AddNoteIcon";
 import { useAuthContext } from "context/AuthContext/AuthContext";
 import { useLoadingContext } from "context/LoadingContext/LoadingContext";
+import {toast} from "react-toastify"
 
 export const Dashboard = () => {
   const [notes, setNotes] = useState([]);
-  const { setIsLoading } = useLoadingContext();
-  const { userProfile, getUserProfile } = useAuthContext();
+ const [isLoading, setIsLoading] = useState(false)
+  const { user } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
+
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
 
   const getNotes = async () => {
-    const options = { sortBy: "asc", page: 1, limit: 2 };
     try {
       setIsLoading(true);
-      const { data } = await readNotes(options);
+      const { data } = await readNotes({ sortBy: "asc", page: 1, limit: 2 });
       setNotes(data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -32,8 +33,11 @@ export const Dashboard = () => {
 
   useEffect(() => {
     getNotes();
-    getUserProfile();
   }, []);
+
+  if(isLoading) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <div className="dashboard-container">
@@ -41,14 +45,14 @@ export const Dashboard = () => {
       <div className="container">
         <div className="d-flex justify-content-between w-100 py-4">
           <h2 className="s-2 text-light">
-            <Greeting /> {userProfile?.name}
+            <Greeting /> {user?.name}
           </h2>
           <Link to="/create" className="text-decoration-none text-secondary">
             <AddNoteIcon />
           </Link>
         </div>
         <div className="row mt-5">
-          {notes.map((note) => (
+          {notes?.map((note) => (
             <div className="col-md-3" key={note._id}>
               <NoteCard note={note} />
             </div>

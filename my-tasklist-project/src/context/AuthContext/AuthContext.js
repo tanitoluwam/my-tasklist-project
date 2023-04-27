@@ -1,30 +1,27 @@
-import { CustomErrorComponent } from "components/shared/CustomErrorComponent";
 import { useLoadingContext } from "context/LoadingContext/LoadingContext";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { readUserProfile } from "service";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const { isLoading, setIsLoading } = useLoadingContext();
-  const [userProfile, setUserProfile] = useState(null);
-  const getUserProfile = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await readUserProfile();
-      setUserProfile(data);
-    } catch (error) {
-      CustomErrorComponent({ message: error.message });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [user, setUser] = useState(null);
 
-  return (
-    <AuthContext.Provider value={{ userProfile, getUserProfile }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const { data } = await readUserProfile();
+        setUser(data);
+      } catch (error) {}
+    };
+    getUserProfile();
+  }, []);
+
+  const value = useMemo(() => {
+    return { user, setUser };
+  }, [user, setUser]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => {

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FormikControl } from "../shared/FormikControl";
@@ -6,9 +6,12 @@ import { loginUser } from "../../service";
 import { AuthLayout } from "../../layout/AuthLayout";
 import { CustomButton } from "../CustomButton/CustomButton";
 import { useLoadingContext } from "context/LoadingContext/LoadingContext";
+import { useAuthContext } from "context/AuthContext/AuthContext";
 
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.path || "/dashboard";
   const initialValues = {
     email: "",
     password: "",
@@ -21,9 +24,10 @@ export const LoginForm = () => {
 
   const onSubmit = async (values) => {
     const res = await loginUser(values);
-      if (res) {
-        navigate("/dashboard");
-      }
+    if (res) {
+      navigate(redirectPath, { replace: true });
+      // console.log(location.state?.path);
+    }
   };
   return (
     <Formik

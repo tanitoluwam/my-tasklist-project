@@ -78,7 +78,7 @@ export const RegisterForm = () => {
                   />
                 </div>
                 <div className="mb-3 text-center">
-                  <Link className="text-decoration-none link-color" to="/login">
+                  <Link className="text-decoration-none link-color" to="/">
                     Already have an account?
                   </Link>
                 </div>

@@ -4,6 +4,7 @@ import { createNote } from "service";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { FormikControl } from "../shared/FormikControl";
+import { CustomButton } from "../CustomButton/CustomButton";
 
 export const CreateNote = () => {
   const [createdNote, setCreatedNote] = useState([]);
@@ -13,15 +14,6 @@ export const CreateNote = () => {
     description: "",
     note: "",
   };
-  // const editNote = async () => {
-  //   const noteId = "noteId";
-  //   try {
-  //     const { data } = await updateNote(noteId);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Required"),
@@ -79,15 +71,14 @@ export const CreateNote = () => {
                   />
                 </div>
                 <div className="d-flex justify-content-between w-25 mx-auto">
-                  <button
-                    className="btn btn-lg text-light rounded-pill cta-btn mt-2"
-                    type="submit"
-                  >
-                    Save
-                  </button>
-                  <button className="btn btn-lg text-light rounded-pill cta-btn mt-2">
-                    cancel
-                  </button>
+                  <CustomButton
+                    text="save"
+                    disabled={!formik.isValid || formik.isSubmitting}
+                  />
+                  <CustomButton
+                    text="cancel"
+                    disabled={!formik.isValid || formik.isSubmitting}
+                  />
                 </div>
               </Form>
             </div>

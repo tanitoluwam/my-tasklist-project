@@ -57,7 +57,7 @@ export const ForgotPasswordForm = () => {
             </div>
           ) : null}
         </div>
-        <CustomButton  text="Reset password" disabled="!formik.isValid || formik.isSubmitting"/>
+        <CustomButton  text="Reset password" disabled={!formik.isValid || formik.isSubmitting}/>
       </form>
     </AuthLayout>
   );
